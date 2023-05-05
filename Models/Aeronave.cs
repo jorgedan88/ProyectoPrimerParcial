@@ -6,7 +6,7 @@ namespace ProyectoPrimerParcial.Models
 {
     public class Aeronave
     {
-        public int AeronaveID { get; set; }
+        public int AeronaveId { get; set; }
         public string Matricula { get; set; }
         public string Modelo { get; set; }
 

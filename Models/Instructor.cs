@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace ProyectoPrimerParcial.Models
 {  
     public class Instructor
     {
-        public int Id{get; set;}
+        public int InstructorId{get; set;}
 
         [Range(1,50000,ErrorMessage ="El campo debe ser un número entre 1 y 5000")]
         [Required(ErrorMessage ="Debe ingresar el Legajo de Vuelo")]
