@@ -27,3 +27,5 @@ namespace ProyectoPrimerParcial.Models
         public bool EnActividad {get; set;}
     }
 }  
+
+// git commit -m
