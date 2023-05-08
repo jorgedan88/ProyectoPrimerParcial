@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\olive\\RepoIstea\\ProyectoPrimerParcial\\ProyectoPrimerParcial.csproj": {}
+    "C:\\Users\\olive\\RepoIstea\\ProyectoPrimerParcial\\ProyectoPrimerParcial.csproj": {}
   },
   "projects": {
-    "c:\\Users\\olive\\RepoIstea\\ProyectoPrimerParcial\\ProyectoPrimerParcial.csproj": {
+    "C:\\Users\\olive\\RepoIstea\\ProyectoPrimerParcial\\ProyectoPrimerParcial.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\olive\\RepoIstea\\ProyectoPrimerParcial\\ProyectoPrimerParcial.csproj",
+        "projectUniqueName": "C:\\Users\\olive\\RepoIstea\\ProyectoPrimerParcial\\ProyectoPrimerParcial.csproj",
         "projectName": "ProyectoPrimerParcial",
-        "projectPath": "c:\\Users\\olive\\RepoIstea\\ProyectoPrimerParcial\\ProyectoPrimerParcial.csproj",
+        "projectPath": "C:\\Users\\olive\\RepoIstea\\ProyectoPrimerParcial\\ProyectoPrimerParcial.csproj",
         "packagesPath": "C:\\Users\\olive\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\olive\\RepoIstea\\ProyectoPrimerParcial\\obj\\",
+        "outputPath": "C:\\Users\\olive\\RepoIstea\\ProyectoPrimerParcial\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\olive\\AppData\\Roaming\\NuGet\\NuGet.Config",

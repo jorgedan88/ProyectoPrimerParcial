@@ -28,4 +28,3 @@ namespace ProyectoPrimerParcial.Models
     }
 }  
 
-// git commit -m
