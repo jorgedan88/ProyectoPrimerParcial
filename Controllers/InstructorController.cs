@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ProyectoPrimerParcial.Data;
 using ProyectoPrimerParcial.Models;
-using ProyectoPrimerParciall.Data;
 
-namespace ProyectoPrimerParcial.Controllers
+namespace ProyectoPrimerParcial2.Controllers
 {
     public class InstructorController : Controller
     {
@@ -56,7 +56,7 @@ namespace ProyectoPrimerParcial.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InstructorId,LegajoVuelo,Nombre,Apellido,DNI,FechaExpedicion,Experiencia,EnActividad")] Instructor instructor)
+        public async Task<IActionResult> Create([Bind("InstructorId,NombreInstructor,Apellido,DNI,LegajoVuelo")] Instructor instructor)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace ProyectoPrimerParcial.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("InstructorId,LegajoVuelo,Nombre,Apellido,DNI,FechaExpedicion,Experiencia,EnActividad")] Instructor instructor)
+        public async Task<IActionResult> Edit(int id, [Bind("InstructorId,NombreInstructor,Apellido,DNI,LegajoVuelo")] Instructor instructor)
         {
             if (id != instructor.InstructorId)
             {

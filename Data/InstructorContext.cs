@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProyectoPrimerParcial.Models;
 
-namespace ProyectoPrimerParciall.Data
+namespace ProyectoPrimerParcial.Data
 {
     public class InstructorContext : DbContext
     {

@@ -10085,11 +10085,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\olive\\RepoIstea\\ProyectoPrimerParcial\\ProyectoPrimerParcial.csproj",
-      "projectName": "ProyectoPrimerParcial",
-      "projectPath": "C:\\Users\\olive\\RepoIstea\\ProyectoPrimerParcial\\ProyectoPrimerParcial.csproj",
+      "projectUniqueName": "c:\\Users\\olive\\RepoIstea\\ProyectoPrimerParcial\\ProyectoPrimerParcial2.csproj",
+      "projectName": "ProyectoPrimerParcial2",
+      "projectPath": "c:\\Users\\olive\\RepoIstea\\ProyectoPrimerParcial\\ProyectoPrimerParcial2.csproj",
       "packagesPath": "C:\\Users\\olive\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\olive\\RepoIstea\\ProyectoPrimerParcial\\obj\\",
+      "outputPath": "c:\\Users\\olive\\RepoIstea\\ProyectoPrimerParcial\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\olive\\AppData\\Roaming\\NuGet\\NuGet.Config",

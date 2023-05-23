@@ -1,13 +1,6 @@
 html {
   font-size: 14px;
-  background-color: rgb(215, 226, 226);
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-    background-color: fuchsia;
-  }
+  background-color: rgb(84, 196, 196);
 }
 
 html {

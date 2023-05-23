@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using ProyectoPrimerParciall.Data;
+using ProyectoPrimerParcial.Data;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<InstructorContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("InstructorContext") ?? throw new InvalidOperationException("Connection string 'InstructorContext' not found.")));

@@ -1,30 +1,29 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace ProyectoPrimerParcial.Models
-{  
+{
     public class Instructor
     {
-        public int InstructorId{get; set;}
+        public int InstructorId { get; set; }
+        
+        [Required(ErrorMessage ="Debe ingresar el Nombre del instructor")]
+        [Display(Name = "Nombre")]
 
-        [Range(1,50000,ErrorMessage ="El campo debe ser un número entre 1 y 5000")]
-        [Required(ErrorMessage ="Debe ingresar el Legajo de Vuelo")]
+        public string? NombreInstructor {get; set;}
+
+        [Required(ErrorMessage ="Debe ingresar el Apellido del instructor")]
+        [Display(Name = "Apellido")]
+
+        public string? Apellido {get; set;}
+
+        [Required(ErrorMessage ="Debe ingresar el DNI del instructor")]
+        [Display(Name = "DNI")]
+        public int DNI {get; set;}
+
+        [Required(ErrorMessage ="Debe ingresar el Legajo de Vuelo del instructor")]
+        [Display(Name = "Legajo")]
         public int LegajoVuelo {get; set;}
         
-        [Required(ErrorMessage ="Debe ingresar el Nombre")]
-        public string Nombre {get; set;}
-
-        [Required(ErrorMessage ="Debe ingresar el Apellido")]
-        public string Apellido {get; set;}
-
-        [Required(ErrorMessage ="Debe ingresar el DNI")]
-        public int DNI {get; set;}
-        public DateTime FechaExpedicion {get; set;}
-        [Range(1,3)]
-        public int Experiencia{get; set;}
-        public bool EnActividad {get; set;}
     }
-}  
-
+}
