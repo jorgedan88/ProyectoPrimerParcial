@@ -1,21 +1,24 @@
 html {
   font-size: 14px;
-  background-color: rgb(84, 196, 196);
 }
 
 html {
   position: relative;
   min-height: 100%;
-  background-image: url(https://static.wixstatic.com/media/279b70_07d1f5ba938e4f0fa2fa745371a35533.jpg);
-
+  /* background-image: url(https://static.wixstatic.com/media/279b70_07d1f5ba938e4f0fa2fa745371a35533.jpg); */
+  background-image: url('Aeroclub.jpg');  
 }
 
 body {
   margin-bottom: 60px;
-  background-color: rgb(222, 225, 224);
+  background-color: rgb(213, 212, 247);
 }
 
-  header {
-    background-color: blue;
-    height: 100px;
-  }
+header {
+  background-color: blue;
+  height: 100px;
+}
+
+p{
+  color: #000;
+}
