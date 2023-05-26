@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "XmpZABxVOPfFNtlYmhQmzleRzm9+w3wFcfSEdBQb/70=",
+  "Hash": "vUmQ4wYitQM7nDmS70PJJSoce1C32JQEnXFzbIC5hR8=",
   "Source": "ProyectoPrimerParcial2",
   "BasePath": "_content/ProyectoPrimerParcial2",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\olive\\RepoIstea\\ProyectoPrimerParcial\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\ProyectoPrimerParcial2.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\olive\\RepoIstea\\ProyectoPrimerParcial\\wwwroot\\css\\Aeroclub.jpg",
+      "SourceId": "ProyectoPrimerParcial2",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\olive\\RepoIstea\\ProyectoPrimerParcial\\wwwroot\\",
+      "BasePath": "_content/ProyectoPrimerParcial2",
+      "RelativePath": "css/Aeroclub.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Aeroclub.jpg"
     },
     {
       "Identity": "C:\\Users\\olive\\RepoIstea\\ProyectoPrimerParcial\\wwwroot\\css\\site.css",

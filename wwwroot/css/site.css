@@ -1,12 +1,11 @@
 html {
-  font-size: 14px;
+  font-size: 17px;
 }
 
 html {
   position: relative;
   min-height: 100%;
-  /* background-image: url(https://static.wixstatic.com/media/279b70_07d1f5ba938e4f0fa2fa745371a35533.jpg); */
-  background-image: url('Aeroclub.jpg');  
+  background-image: url(https://static.wixstatic.com/media/279b70_07d1f5ba938e4f0fa2fa745371a35533.jpg);
 }
 
 body {
