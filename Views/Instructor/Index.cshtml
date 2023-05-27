@@ -6,6 +6,8 @@
 
 <h1>Instructores de vuelo</h1>
 
+
+
 <p>
     <a asp-action="Create">Crear Instructor</a>
 </p>
@@ -24,6 +26,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.LegajoVuelo)
             </th>
+                        <th>
+                @Html.DisplayNameFor(model => model.AeronaveId)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -41,6 +46,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LegajoVuelo)
+            </td>
+                        <td>
+                @Html.DisplayFor(modelItem => item.Aeronave.TipoAeronave)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.InstructorId">Editar</a> |

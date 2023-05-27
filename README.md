@@ -11,7 +11,7 @@ En este repositorio se encuentra el proyecto correspondiente al primer parcial, 
 
 ## Informacion General 
 ***
-La aplicación perteneciente al aeroclub del río de la plata tiene como objetivo la gestión de la nomina de instructores de vuelo desde sus datos personales hasta la asignación de aeronaves a los mismos.  El proyecto se encuentra aun en proceso de desarrollo llegando hasta la conexión del mismo su propia base de datos. 
+La aplicación perteneciente al aeroclub del río de la plata tiene como objetivo la gestión de la nomina de instructores de vuelo desde sus datos personales hasta la asignación de aeronaves a los mismos.  El proyecto se encuentra aun aun en proceso de desarrollo llegando hasta la conexión del mismo su propia base de datos. 
 ### Menu principal
 
 ![Image text](https://github.com/jorgedan88/ProyectoPrimerParcial/blob/main/Resources/Index.jpg);

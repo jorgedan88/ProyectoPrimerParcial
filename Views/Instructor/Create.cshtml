@@ -35,11 +35,16 @@
                 <input asp-for="LegajoVuelo" class="form-control" />
                 <span asp-validation-for="LegajoVuelo" class="text-danger"></span>
             </div>
-
+            <br>
+            <div class="form-group">
+                <label asp-for="AeronaveId" class="control-label"></label>
+                <select asp-for="AeronaveId" class="form-control" asp-items="ViewBag.AeronaveId"></select>
+            </div>
             <br>
             <div class="form-group">
                 <input type="submit" value="Crear" class="btn btn-primary" />
             </div>
+
         </form>
     </div>
 </div>
