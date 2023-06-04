@@ -57,7 +57,7 @@ namespace Test.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InstructorId,NombreInstructor,Apellido,DNI,LegajoVuelo,AeronaveId")] Instructor instructor)
+        public async Task<IActionResult> Create([Bind("InstructorId,NombreInstructor,Apellido,DNI,TipoLicencia,NumeroLicencia,FechaExpedicion,EnActividad,AeronaveId")] Instructor instructor)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace Test.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AeronaveId"] = new SelectList(_context.Aeronave, "AeronaveId", "TipoAeronave", instructor.AeronaveId);
+            ViewData["AeronaveId"] = new SelectList(_context.Aeronave, "AeronaveId", "TipoAeronave",  instructor.AeronaveId);
             return View(instructor);
         }
 
@@ -91,7 +91,7 @@ namespace Test.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("InstructorId,NombreInstructor,Apellido,DNI,LegajoVuelo,AeronaveId")] Instructor instructor)
+        public async Task<IActionResult> Edit(int id, [Bind("InstructorId,NombreInstructor,Apellido,DNI,TipoLicencia,NumeroLicencia,FechaExpedicion,EnActividad,AeronaveId")] Instructor instructor)
         {
             if (id != instructor.InstructorId)
             {
@@ -162,7 +162,7 @@ namespace Test.Controllers
 
         private bool InstructorExists(int id)
         {
-          return (_context.Instructor?.Any(e => e.InstructorId == id)).GetValueOrDefault();
+            return (_context.Instructor?.Any(e => e.InstructorId == id)).GetValueOrDefault();
         }
     }
 }
