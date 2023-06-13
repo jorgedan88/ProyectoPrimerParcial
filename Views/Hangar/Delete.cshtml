@@ -1,0 +1,46 @@
+@model ProyectoPrimerParcial.Models.Hangar
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Eliminar Hangar</h1>
+
+<h3>Esta seguro que quiere eliminar este Hangar?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NombreHangar)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NombreHangar)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Sector)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Sector)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AptoMantenimiento)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AptoMantenimiento)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.oficinas)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.oficinas)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="HangarId" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> 
+        <br>
+        <br>
+        <a asp-action="Index">Volver</a>
+    </form>
+</div>

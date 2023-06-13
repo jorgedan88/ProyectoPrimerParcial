@@ -17,6 +17,21 @@ namespace Test.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
 
+            modelBuilder.Entity("AeronaveHangar", b =>
+                {
+                    b.Property<int>("AeronavesAeronaveId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("HangarsHangarId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("AeronavesAeronaveId", "HangarsHangarId");
+
+                    b.HasIndex("HangarsHangarId");
+
+                    b.ToTable("AeronaveHangar");
+                });
+
             modelBuilder.Entity("ProyectoPrimerParcial.Models.Aeronave", b =>
                 {
                     b.Property<int>("AeronaveId")
@@ -33,6 +48,30 @@ namespace Test.Migrations
                     b.HasKey("AeronaveId");
 
                     b.ToTable("Aeronave");
+                });
+
+            modelBuilder.Entity("ProyectoPrimerParcial.Models.Hangar", b =>
+                {
+                    b.Property<int>("HangarId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("AptoMantenimiento")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("NombreHangar")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Sector")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("oficinas")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("HangarId");
+
+                    b.ToTable("Hangar");
                 });
 
             modelBuilder.Entity("ProyectoPrimerParcial.Models.Instructor", b =>
@@ -72,6 +111,21 @@ namespace Test.Migrations
                     b.HasIndex("AeronaveId");
 
                     b.ToTable("Instructor");
+                });
+
+            modelBuilder.Entity("AeronaveHangar", b =>
+                {
+                    b.HasOne("ProyectoPrimerParcial.Models.Aeronave", null)
+                        .WithMany()
+                        .HasForeignKey("AeronavesAeronaveId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProyectoPrimerParcial.Models.Hangar", null)
+                        .WithMany()
+                        .HasForeignKey("HangarsHangarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProyectoPrimerParcial.Models.Instructor", b =>

@@ -10,11 +10,14 @@ namespace ProyectoPrimerParcial.Models
 
         [Required(ErrorMessage ="Debe ingresar el Nombre del instructor")]
         [Display(Name = "Nombre")]
+
+
         public string? NombreInstructor {get; set;}
-        
+
         [Required(ErrorMessage ="Debe ingresar el Apellido del instructor")]
         [Display(Name = "Apellido")]
         public string? Apellido {get; set;}
+
 
         [Required(ErrorMessage ="Debe ingresar el DNI del instructor")]
         [Display(Name = "DNI")]
@@ -33,7 +36,6 @@ namespace ProyectoPrimerParcial.Models
 
         [Display(Name = "En actividad")]
         public bool EnActividad {get;set;} = true;
-
 
         [Display(Name = "Aeronave")]
         public int AeronaveId { get; set; }
