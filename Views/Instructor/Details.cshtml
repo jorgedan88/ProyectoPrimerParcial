@@ -1,4 +1,4 @@
-@model ProyectoPrimerParcial.Models.Instructor
+@model ProyectoPrimerParcial.ViewModels.InstructorDetailViewModel;
 
 @{
     ViewData["Title"] = "Details";
@@ -52,7 +52,7 @@
             @Html.DisplayFor(model => model.EnActividad)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Aeronave.TipoAeronave)
+            @Html.DisplayNameFor(model => model.Aeronave)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Aeronave.TipoAeronave)

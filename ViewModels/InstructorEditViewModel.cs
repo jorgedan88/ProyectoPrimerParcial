@@ -4,7 +4,7 @@ using ProyectoPrimerParcial.Utils;
 
 namespace ProyectoPrimerParcial.ViewModels;
 
-public class InstructorCreateViewModel{
+public class InstructorEditViewModel{
         public int InstructorId { get; set; }
 
         [Required(ErrorMessage ="Debe ingresar el Nombre del instructor")]

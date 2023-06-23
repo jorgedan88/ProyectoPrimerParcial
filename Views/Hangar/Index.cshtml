@@ -1,4 +1,4 @@
-@model IEnumerable<ProyectoPrimerParcial.Models.Hangar>
+@model ProyectoPrimerParcial.ViewModels.HangarIndexViewmodel;
 
 @{
     ViewData["Title"] = "Index";
@@ -9,6 +9,16 @@
 <p>
     <a asp-action="Create" class="btn btn-success">+ Hangar</a>
 </p>
+
+<div class="row">
+    <form method="get" asp-action="Index" asp-controller="Hangar">
+        <div class="col-6 form-group">
+            <input class="form-control" asp-for="NameFilterHan" />
+        </div>
+        <br>
+        <button class="btn btn-info" type="submit">Buscar</button>
+    </form>
+</div>
 
 <table class="table">
     <thead>
@@ -29,7 +39,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.hangars) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.NombreHangar)

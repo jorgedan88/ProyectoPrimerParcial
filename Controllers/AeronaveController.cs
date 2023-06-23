@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using ProyectoPrimerParcial.Data;
 using ProyectoPrimerParcial.Models;
 using ProyectoPrimerParcial.ViewModels;
-using ProyectoPrimerParcial2.ViewModels;
 
 namespace Test.Controllers
 {
@@ -22,7 +21,10 @@ namespace Test.Controllers
         }
 
         // GET: Aeronave
-        public async Task<IActionResult> Index(string nameFilter)
+        // public async Task<IActionResult> Index(string nameFilter)
+        public async Task<IActionResult> Index(string nameFilter ,[Bind("TipoAeronave,FechaFabricacion")] AeronaveCreateViewModel aeronaveView)
+
+
         {
             var query = from aeronave in _context.Aeronave select aeronave;
 
@@ -56,9 +58,13 @@ namespace Test.Controllers
             {
                 return NotFound();
             }
+
+            var viewModel = new AeronaveDetailViewModel();
+            viewModel.FechaFabricacion = aeronave.FechaFabricacion;
+            viewModel.TipoAeronave = aeronave.TipoAeronave;
             
 
-            return View(aeronave);
+            return View(viewModel);
         }
 
         // GET: Aeronave/Create
@@ -100,7 +106,15 @@ namespace Test.Controllers
             {
                 return NotFound();
             }
-            return View(aeronave);
+
+            var viewModel = new AeronaveEditViewModel();
+            viewModel.FechaFabricacion = aeronave.FechaFabricacion;
+            viewModel.TipoAeronave = aeronave.TipoAeronave;
+            
+
+            return View(viewModel);
+
+            // return View(aeronave);
         }
 
         // POST: Aeronave/Edit/5
@@ -108,7 +122,8 @@ namespace Test.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AeronaveId,TipoAeronave,FechaFabricacion")] AeronaveEditlViewModel aeronaveView)
+
+        public async Task<IActionResult> Edit(int id, [Bind("AeronaveId,TipoAeronave,FechaFabricacion")] AeronaveEditViewModel aeronaveView)
         {
             if (id != aeronaveView.AeronaveId)
             {
@@ -156,9 +171,13 @@ namespace Test.Controllers
             {
                 return NotFound();
             }
+                var viewModel = new AeronaveDeleteViewModel();
+                    viewModel.FechaFabricacion = aeronave.FechaFabricacion;
+                    viewModel.TipoAeronave = aeronave.TipoAeronave;
 
-            return View(aeronave);
+            return View(viewModel);
         }
+
 
         // POST: Aeronave/Delete/5
         [HttpPost, ActionName("Delete")]

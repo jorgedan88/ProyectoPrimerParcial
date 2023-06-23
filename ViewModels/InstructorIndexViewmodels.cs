@@ -1,11 +1,19 @@
+using System;
+using System.Collections.Generic;
 using ProyectoPrimerParcial.Models;
 using System.ComponentModel.DataAnnotations;
 using ProyectoPrimerParcial.Utils;
 
 namespace ProyectoPrimerParcial.ViewModels;
 
-public class InstructorCreateViewModel{
-        public int InstructorId { get; set; }
+public class InstructorIndexViewmodels
+
+{
+    public List<Instructor> instructors {get; set; } = new List<Instructor>();
+
+    public String? NameFilterIns { get; set; }
+    
+            public int InstructorId { get; set; }
 
         [Required(ErrorMessage ="Debe ingresar el Nombre del instructor")]
         [Display(Name = "Nombre")]
@@ -40,4 +48,4 @@ public class InstructorCreateViewModel{
         public int AeronaveId { get; set; }
         public virtual Aeronave? Aeronave { get; set; }
 
-}
+} 

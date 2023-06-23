@@ -1,10 +1,19 @@
+using System;
+using System.Collections.Generic;
 using ProyectoPrimerParcial.Models;
 using System.ComponentModel.DataAnnotations;
 using ProyectoPrimerParcial.Utils;
 
 namespace ProyectoPrimerParcial.ViewModels;
 
-public class HangarCreateViewModel{ 
+public class HangarIndexViewmodel
+
+{
+    public List<Hangar> hangars {get; set; } = new List<Hangar>();
+
+    public String? NameFilterHan { get; set; }
+
+
         public int HangarId { get; set; }
 
         [Display(Name = "Nombre")]
@@ -21,4 +30,5 @@ public class HangarCreateViewModel{
         [Display(Name = "Cuenta con oficinas?")]
         public bool oficinas {get;set;} = true;
         public virtual List<Aeronave>? Aeronaves { get; set; }
-}
+    
+} 

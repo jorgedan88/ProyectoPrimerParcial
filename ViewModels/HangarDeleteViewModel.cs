@@ -4,7 +4,7 @@ using ProyectoPrimerParcial.Utils;
 
 namespace ProyectoPrimerParcial.ViewModels;
 
-public class HangarCreateViewModel{ 
+public class HangarDeleteViewModel{ 
         public int HangarId { get; set; }
 
         [Display(Name = "Nombre")]

@@ -9,6 +9,7 @@ using ProyectoPrimerParcial.Data;
 using ProyectoPrimerParcial.Models;
 using ProyectoPrimerParcial.ViewModels;
 
+
 namespace Test.Controllers
 {
     public class HangarController : Controller
@@ -21,11 +22,22 @@ namespace Test.Controllers
         }
 
         // GET: Hangar
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string nameFilterHan)
         {
-            return _context.Hangar != null ? 
-                        View(await _context.Hangar.ToListAsync()) :
-                        Problem("Entity set 'AeronaveContext.Hangar'  is null.");
+            var query = from hangar in _context.Hangar select hangar;
+
+            if (!string.IsNullOrEmpty(nameFilterHan))
+            {
+                query = query.Where(x => x.NombreHangar.Contains(nameFilterHan));
+                // query = query.Where(x => x.NombreHangar.Contains(nameFilterHan) || x.Sector.Contains(nameFilterHan));
+            }
+
+            var model = new HangarIndexViewmodel();
+            model.hangars =await query.ToListAsync();
+            
+            return _context.Aeronave != null ?
+            View(model):
+            Problem("Entity set 'AeronaveContex.Aeronave' is null.");
         }
 
         // GET: Hangar/Details/5
@@ -43,13 +55,20 @@ namespace Test.Controllers
                 return NotFound();
             }
 
-            return View(hangar);
+            var viewModel = new HangarDetailViewModel();
+            viewModel.HangarId = hangar.HangarId;
+            viewModel.NombreHangar = hangar.NombreHangar;
+            viewModel.Sector = hangar.Sector;
+            viewModel.AptoMantenimiento = hangar.AptoMantenimiento;
+            viewModel.Aeronaves = hangar.Aeronaves;
+
+
+            return View(viewModel);
         }
 
         // GET: Hangar/Create
         public IActionResult Create()
         {
-            ViewData["Aeronaves"] = new SelectList(_context.Aeronave, "AeronaveId", "TipoAeronave",  "instructor.AeronaveId");
             return View();
         }
 
@@ -58,7 +77,7 @@ namespace Test.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("HangarId,NombreHangar,Sector,AptoMantenimiento,oficinas,Aeronaves")] HangarCreateViewModel hangarView)
+        public async Task<IActionResult> Create([Bind("HangarId,NombreHangar,Sector,AptoMantenimiento,oficinas")] HangarCreateViewModel hangarView)
         {
             if (ModelState.IsValid)
             {
@@ -89,8 +108,18 @@ namespace Test.Controllers
             {
                 return NotFound();
             }
-            ViewData["Aeronaves"] = new SelectList(_context.Aeronave, "AeronaveId", "TipoAeronave",  "instructor.AeronaveId");
-            return View(hangar);
+
+            var viewModel = new HangarEditViewModel();
+            viewModel.HangarId = hangar.HangarId;
+            viewModel.NombreHangar = hangar.NombreHangar;
+            viewModel.Sector = hangar.Sector;
+            viewModel.AptoMantenimiento = hangar.AptoMantenimiento;
+            viewModel.Aeronaves = hangar.Aeronaves;
+
+
+            return View(viewModel);
+            // ViewData["Aeronaves"] = new SelectList(_context.Aeronave, "AeronaveId", "TipoAeronave",  "instructor.AeronaveId");
+            // return View(hangar);
         }
 
         // POST: Hangar/Edit/5
@@ -142,8 +171,14 @@ namespace Test.Controllers
             {
                 return NotFound();
             }
+            var viewModel = new HangarDeleteViewModel();
+            // viewModel.HangarId = hangar.HangarId;
+            viewModel.NombreHangar = hangar.NombreHangar;
+            viewModel.Sector = hangar.Sector;
+            viewModel.AptoMantenimiento = hangar.AptoMantenimiento;
+            viewModel.Aeronaves = hangar.Aeronaves;
 
-            return View(hangar);
+            return View(viewModel);
         }
 
         // POST: Hangar/Delete/5
@@ -167,7 +202,7 @@ namespace Test.Controllers
 
         private bool HangarExists(int id)
         {
-          return (_context.Hangar?.Any(e => e.HangarId == id)).GetValueOrDefault();
+            return (_context.Hangar?.Any(e => e.HangarId == id)).GetValueOrDefault();
         }
     }
 }
