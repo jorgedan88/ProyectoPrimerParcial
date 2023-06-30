@@ -1,4 +1,4 @@
-@model ProyectoPrimerParcial.ViewModels.HangarCreateViewModel
+@model Proyecto_PrimerParcial.Models.Hangar
 
 @{
     ViewData["Title"] = "Create";
@@ -13,35 +13,32 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="NombreHangar" class="control-label"></label>
-                <input asp-for="NombreHangar" class="form-control" />
-                <span asp-validation-for="NombreHangar" class="text-danger"></span>
+                <label asp-for="HangarNombre" class="control-label"></label>
+                <input asp-for="HangarNombre" class="form-control" />
+                <span asp-validation-for="HangarNombre" class="text-danger"></span>
             </div>
-            <br>
-            <label asp-for="Sector" class="control-label"></label>
-            <select asp-for="Sector" class="form-control">
+            @* <div class="form-group">
+                <label asp-for="HangarSector" class="control-label"></label>
+                <select asp-for="HangarSector" class="form-control"></select>
+                <span asp-validation-for="HangarSector" class="text-danger"></span>
+            </div> *@
+            <label asp-for="HangarSector" class="control-label"></label>
+            <select asp-for="HangarSector" class="form-control">
             <option value="0">Norte</option>
             <option value="1">Sur</option>
             <option value="2">Este</option>
             <option value="3">Oeste</option>
-            </select>            
-            <br>
+            </select>  
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="AptoMantenimiento" /> @Html.DisplayNameFor(model => model.AptoMantenimiento)
+                    <input class="form-check-input" asp-for="HangarAptoMantenimiento" /> @Html.DisplayNameFor(model => model.HangarAptoMantenimiento)
                 </label>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="oficinas" /> @Html.DisplayNameFor(model => model.oficinas)
+                    <input class="form-check-input" asp-for="HangarOficinas" /> @Html.DisplayNameFor(model => model.HangarOficinas)
                 </label>
             </div>
-            <br>
-            <div class="form-group">
-                <label asp-for="Aeronaves" class="control-label"></label>
-                <select asp-for="Aeronaves" class="form-control" asp-items="ViewBag.Aeronaves"></select>
-            </div>
-            <br>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

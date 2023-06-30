@@ -1,40 +1,36 @@
-@using ProyectoPrimerParcial.ViewModels;
-@model AeronaveDetailViewModel;
+@model Proyecto_PrimerParcial.Models.Aeronave
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Detalle de la aeronave</h1>
+<h1>Details</h1>
 
 <div>
+    <h4>Aeronave</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TipoAeronave)
+            @Html.DisplayNameFor(model => model.AeronaveFabricacion)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TipoAeronave)
+            @Html.DisplayFor(model => model.AeronaveFabricacion)
         </dd>
-            <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaFabricacion)
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AeronaveTipo)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaFabricacion)
+            @Html.DisplayFor(model => model.AeronaveTipo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AeronaveMatricula)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AeronaveMatricula)
         </dd>
     </dl>
-    @* <div>
-        <ol>
-            @foreach (var item in Model.Hangars)
-            {
-                <li>@item.NombreHangar</li>
-            }
-        </ol>
-    </div>     *@
 </div>
-@* <div>
-    <a asp-action="Edit" asp-route-id="@Model?.AeronaveId" class="btn btn-warning">Editar</a> 
-<br> *@
-<br>
-    <a asp-action="Index">Volver</a>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.AeronaveId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
 </div>

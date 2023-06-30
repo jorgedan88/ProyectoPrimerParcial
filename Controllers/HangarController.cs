@@ -5,39 +5,26 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ProyectoPrimerParcial.Data;
-using ProyectoPrimerParcial.Models;
-using ProyectoPrimerParcial.ViewModels;
+using Proyecto_PrimerParcial.Data;
+using Proyecto_PrimerParcial.Models;
 
-
-namespace Test.Controllers
+namespace Proyecto_PrimerParcial.Controllers
 {
     public class HangarController : Controller
     {
-        private readonly AeronaveContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public HangarController(AeronaveContext context)
+        public HangarController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         // GET: Hangar
-        public async Task<IActionResult> Index(string nameFilterHan)
+        public async Task<IActionResult> Index()
         {
-            var query = from hangar in _context.Hangar select hangar;
-
-            if (!string.IsNullOrEmpty(nameFilterHan))
-            {
-                query = query.Where(x => x.NombreHangar.Contains(nameFilterHan));
-                // query = query.Where(x => x.NombreHangar.Contains(nameFilterHan) || x.Sector.Contains(nameFilterHan));
-            }
-
-            var model = new HangarIndexViewmodel();
-            model.hangars =await query.ToListAsync();
-            
-            return _context.Aeronave != null ?
-            View(model):
-            Problem("Entity set 'AeronaveContex.Aeronave' is null.");
+              return _context.Hangar != null ? 
+                          View(await _context.Hangar.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Hangar'  is null.");
         }
 
         // GET: Hangar/Details/5
@@ -55,15 +42,7 @@ namespace Test.Controllers
                 return NotFound();
             }
 
-            var viewModel = new HangarDetailViewModel();
-            viewModel.HangarId = hangar.HangarId;
-            viewModel.NombreHangar = hangar.NombreHangar;
-            viewModel.Sector = hangar.Sector;
-            viewModel.AptoMantenimiento = hangar.AptoMantenimiento;
-            viewModel.Aeronaves = hangar.Aeronaves;
-
-
-            return View(viewModel);
+            return View(hangar);
         }
 
         // GET: Hangar/Create
@@ -77,22 +56,15 @@ namespace Test.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("HangarId,NombreHangar,Sector,AptoMantenimiento,oficinas")] HangarCreateViewModel hangarView)
+        public async Task<IActionResult> Create([Bind("HangarId,HangarNombre,HangarSector,HangarAptoMantenimiento,HangarOficinas")] Hangar hangar)
         {
             if (ModelState.IsValid)
             {
-                var hangar = new Hangar{
-                    NombreHangar = hangarView.NombreHangar,
-                    Sector = hangarView.Sector,
-                    AptoMantenimiento = hangarView.AptoMantenimiento,
-                    oficinas = hangarView.oficinas,
-                    Aeronaves = hangarView.Aeronaves
-                };
                 _context.Add(hangar);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(hangarView);
+            return View(hangar);
         }
 
         // GET: Hangar/Edit/5
@@ -108,18 +80,7 @@ namespace Test.Controllers
             {
                 return NotFound();
             }
-
-            var viewModel = new HangarEditViewModel();
-            viewModel.HangarId = hangar.HangarId;
-            viewModel.NombreHangar = hangar.NombreHangar;
-            viewModel.Sector = hangar.Sector;
-            viewModel.AptoMantenimiento = hangar.AptoMantenimiento;
-            viewModel.Aeronaves = hangar.Aeronaves;
-
-
-            return View(viewModel);
-            // ViewData["Aeronaves"] = new SelectList(_context.Aeronave, "AeronaveId", "TipoAeronave",  "instructor.AeronaveId");
-            // return View(hangar);
+            return View(hangar);
         }
 
         // POST: Hangar/Edit/5
@@ -127,7 +88,7 @@ namespace Test.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("HangarId,NombreHangar,Sector,AptoMantenimiento,oficinas,Aeronaves")] Hangar hangar)
+        public async Task<IActionResult> Edit(int id, [Bind("HangarId,HangarNombre,HangarSector,HangarAptoMantenimiento,HangarOficinas")] Hangar hangar)
         {
             if (id != hangar.HangarId)
             {
@@ -171,14 +132,8 @@ namespace Test.Controllers
             {
                 return NotFound();
             }
-            var viewModel = new HangarDeleteViewModel();
-            // viewModel.HangarId = hangar.HangarId;
-            viewModel.NombreHangar = hangar.NombreHangar;
-            viewModel.Sector = hangar.Sector;
-            viewModel.AptoMantenimiento = hangar.AptoMantenimiento;
-            viewModel.Aeronaves = hangar.Aeronaves;
 
-            return View(viewModel);
+            return View(hangar);
         }
 
         // POST: Hangar/Delete/5
@@ -188,7 +143,7 @@ namespace Test.Controllers
         {
             if (_context.Hangar == null)
             {
-                return Problem("Entity set 'AeronaveContext.Hangar'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Hangar'  is null.");
             }
             var hangar = await _context.Hangar.FindAsync(id);
             if (hangar != null)
@@ -202,7 +157,7 @@ namespace Test.Controllers
 
         private bool HangarExists(int id)
         {
-            return (_context.Hangar?.Any(e => e.HangarId == id)).GetValueOrDefault();
+          return (_context.Hangar?.Any(e => e.HangarId == id)).GetValueOrDefault();
         }
     }
 }

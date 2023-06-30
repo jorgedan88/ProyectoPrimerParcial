@@ -1,12 +1,16 @@
-namespace ProyectoPrimerParcial.Models
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Proyecto_PrimerParcial.Models
 {
     public class Aeronave
     {
         public int AeronaveId { get; set; }
-        public DateTime FechaFabricacion {get;set;}
-        public string? TipoAeronave {get; set;}
-        public ICollection<Instructor> InstructorList { get; set; } = new List<Instructor>();
-        public virtual List<Hangar>? Hangars { get; set; }
-
+        public DateTime AeronaveFabricacion {get;set;}
+        public string? AeronaveTipo {get; set;}
+        public string? AeronaveMatricula {get; set;}  
+        public ICollection<Instructor> InstructorList { get; set; } = new List<Instructor>();  
     }
 }

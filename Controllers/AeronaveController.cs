@@ -5,44 +5,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ProyectoPrimerParcial.Data;
-using ProyectoPrimerParcial.Models;
-using ProyectoPrimerParcial.ViewModels;
+using Proyecto_PrimerParcial.Data;
+using Proyecto_PrimerParcial.Models;
 
-namespace Test.Controllers
+namespace Proyecto_PrimerParcial.Controllers
 {
     public class AeronaveController : Controller
     {
-        private readonly AeronaveContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public AeronaveController(AeronaveContext context)
+        public AeronaveController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         // GET: Aeronave
-        // public async Task<IActionResult> Index(string nameFilter)
-        public async Task<IActionResult> Index(string nameFilter ,[Bind("TipoAeronave,FechaFabricacion")] AeronaveCreateViewModel aeronaveView)
-
-
+        public async Task<IActionResult> Index()
         {
-            var query = from aeronave in _context.Aeronave select aeronave;
-
-            if (!string.IsNullOrEmpty(nameFilter))
-            {
-                query = query.Where(x => x.TipoAeronave.Contains(nameFilter));
-            }
-
-            var model = new AeronaveIndexViewmodels();
-            model.aeronaves =await query.ToListAsync();
-            
-            return _context.Aeronave != null ?
-            View(model):
-            Problem("Entity set 'AeronaveContex.Aeronave' is null.");
-
+              return _context.Aeronave != null ? 
+                          View(await _context.Aeronave.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Aeronave'  is null.");
         }
-
-
 
         // GET: Aeronave/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -59,12 +42,7 @@ namespace Test.Controllers
                 return NotFound();
             }
 
-            var viewModel = new AeronaveDetailViewModel();
-            viewModel.FechaFabricacion = aeronave.FechaFabricacion;
-            viewModel.TipoAeronave = aeronave.TipoAeronave;
-            
-
-            return View(viewModel);
+            return View(aeronave);
         }
 
         // GET: Aeronave/Create
@@ -78,19 +56,15 @@ namespace Test.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TipoAeronave,FechaFabricacion")] AeronaveCreateViewModel aeronaveView)
+        public async Task<IActionResult> Create([Bind("AeronaveId,AeronaveFabricacion,AeronaveTipo,AeronaveMatricula")] Aeronave aeronave)
         {
             if (ModelState.IsValid)
             {
-                var aeronave = new Aeronave{
-                    FechaFabricacion = aeronaveView.FechaFabricacion,
-                    TipoAeronave = aeronaveView.TipoAeronave,
-                };
                 _context.Add(aeronave);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(aeronaveView);
+            return View(aeronave);
         }
 
         // GET: Aeronave/Edit/5
@@ -106,15 +80,7 @@ namespace Test.Controllers
             {
                 return NotFound();
             }
-
-            var viewModel = new AeronaveEditViewModel();
-            viewModel.FechaFabricacion = aeronave.FechaFabricacion;
-            viewModel.TipoAeronave = aeronave.TipoAeronave;
-            
-
-            return View(viewModel);
-
-            // return View(aeronave);
+            return View(aeronave);
         }
 
         // POST: Aeronave/Edit/5
@@ -122,28 +88,23 @@ namespace Test.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        public async Task<IActionResult> Edit(int id, [Bind("AeronaveId,TipoAeronave,FechaFabricacion")] AeronaveEditViewModel aeronaveView)
+        public async Task<IActionResult> Edit(int id, [Bind("AeronaveId,AeronaveFabricacion,AeronaveTipo,AeronaveMatricula")] Aeronave aeronave)
         {
-            if (id != aeronaveView.AeronaveId)
+            if (id != aeronave.AeronaveId)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                var aeronave = new Aeronave{
-                    FechaFabricacion = aeronaveView.FechaFabricacion,
-                    TipoAeronave = aeronaveView.TipoAeronave,
-                };
                 try
                 {
-                    _context.Update(aeronaveView);
+                    _context.Update(aeronave);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AeronaveExists(aeronaveView.AeronaveId))
+                    if (!AeronaveExists(aeronave.AeronaveId))
                     {
                         return NotFound();
                     }
@@ -154,7 +115,7 @@ namespace Test.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(aeronaveView);
+            return View(aeronave);
         }
 
         // GET: Aeronave/Delete/5
@@ -171,13 +132,9 @@ namespace Test.Controllers
             {
                 return NotFound();
             }
-                var viewModel = new AeronaveDeleteViewModel();
-                    viewModel.FechaFabricacion = aeronave.FechaFabricacion;
-                    viewModel.TipoAeronave = aeronave.TipoAeronave;
 
-            return View(viewModel);
+            return View(aeronave);
         }
-
 
         // POST: Aeronave/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -186,7 +143,7 @@ namespace Test.Controllers
         {
             if (_context.Aeronave == null)
             {
-                return Problem("Entity set 'AeronaveContext.Aeronave'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Aeronave'  is null.");
             }
             var aeronave = await _context.Aeronave.FindAsync(id);
             if (aeronave != null)
@@ -200,7 +157,7 @@ namespace Test.Controllers
 
         private bool AeronaveExists(int id)
         {
-            return (_context.Aeronave?.Any(e => e.AeronaveId == id)).GetValueOrDefault();
+          return (_context.Aeronave?.Any(e => e.AeronaveId == id)).GetValueOrDefault();
         }
     }
 }

@@ -1,73 +1,63 @@
-@model ProyectoPrimerParcial.ViewModels.InstructorDeleteViewModel;
+@model Proyecto_PrimerParcial.Models.Instructor
 
 @{
     ViewData["Title"] = "Delete";
 }
 
-<h1>Eliminar instructor</h1>
+<h1>Delete</h1>
 
-<h3>Esta seguro que quiere eliminar este instructor?</h3>
+<h3>Are you sure you want to delete this?</h3>
 <div>
-    
+    <h4>Instructor</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NombreInstructor)
+            @Html.DisplayNameFor(model => model.InstructorNombre)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NombreInstructor)
+            @Html.DisplayFor(model => model.InstructorNombre)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Apellido)
+            @Html.DisplayNameFor(model => model.InstructorApellido)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Apellido)
+            @Html.DisplayFor(model => model.InstructorApellido)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DNI)
+            @Html.DisplayNameFor(model => model.InstructorDni)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DNI)
+            @Html.DisplayFor(model => model.InstructorDni)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TipoLicencia)
+            @Html.DisplayNameFor(model => model.InstructorTipoLicencia)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TipoLicencia)
+            @Html.DisplayFor(model => model.InstructorTipoLicencia)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NumeroLicencia)
+            @Html.DisplayNameFor(model => model.InstructorNumeroLicencia)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NumeroLicencia)
-        </dd>
-            <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaExpedicion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaExpedicion)
+            @Html.DisplayFor(model => model.InstructorNumeroLicencia)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EnActividad)
+            @Html.DisplayNameFor(model => model.InstructorExpedicion)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EnActividad)
+            @Html.DisplayFor(model => model.InstructorExpedicion)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Aeronave)
+            @Html.DisplayNameFor(model => model.InstructorEnActividad)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Aeronave.TipoAeronave)
-        </dd>
+            @Html.DisplayFor(model => model.InstructorEnActividad)
         </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="InstructorId" />
-        <input type="submit" value="Eliminar" class="btn btn-danger" />
-        <br>
-        <br> 
-
-        <a asp-action="Index">Volver</a>
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
     </form>
 </div>

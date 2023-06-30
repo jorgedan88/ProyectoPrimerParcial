@@ -1,14 +1,17 @@
-using ProyectoPrimerParcial.Utils;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Proyecto_PrimerParcial.Utils;
 
-namespace ProyectoPrimerParcial.Models
+namespace Proyecto_PrimerParcial.Models
 {
-    public class Hangar{
+    public class Hangar
+    {
         public int HangarId { get; set; }
-        public string? NombreHangar {get;set;}
-        public HangarType Sector { get; set; }
-        public bool AptoMantenimiento {get;set;} = true;
-        public bool oficinas {get;set;} = true;
-        public virtual List<Aeronave>? Aeronaves { get; set; }
-
+        public string? HangarNombre {get;set;}
+        public HangarType HangarSector { get; set; }
+        public bool HangarAptoMantenimiento {get;set;} = true;
+        public bool HangarOficinas {get;set;} = true;
     }
 }

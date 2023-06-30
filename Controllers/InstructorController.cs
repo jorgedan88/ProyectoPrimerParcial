@@ -5,40 +5,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ProyectoPrimerParcial.Data;
-using ProyectoPrimerParcial.Models;
-using ProyectoPrimerParcial.ViewModels;
+using Proyecto_PrimerParcial.Data;
+using Proyecto_PrimerParcial.Models;
+using Proyecto_PrimerParcial.ViewModels;
 
-
-
-namespace Test.Controllers
+namespace Proyecto_PrimerParcial.Controllers
 {
     public class InstructorController : Controller
     {
-        private readonly AeronaveContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public InstructorController(AeronaveContext context)
+        public InstructorController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         // GET: Instructor
-        public async Task<IActionResult> Index(string nameFilterIns)
+        public async Task<IActionResult> Index()
         {
-            var query = from instructor in _context.Instructor.Include(i => i.Aeronave) select instructor;
-
-            if (!string.IsNullOrEmpty(nameFilterIns))
-            {
-                query = query.Where(x => x.NombreInstructor.Contains(nameFilterIns) || x.Apellido.Contains(nameFilterIns) || x.DNI.ToString() == nameFilterIns);
-            }
-
-            var model = new InstructorIndexViewmodels();
-            model.instructors =await query.ToListAsync();
-            
-            return _context.Aeronave != null ?
-            View(model):
-            Problem("Entity set 'AeronaveContex.Aeronave' is null.");
-
+            return _context.Instructor != null ? 
+                        View(await _context.Instructor.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Instructor'  is null.");
         }
 
         // GET: Instructor/Details/5
@@ -50,28 +37,19 @@ namespace Test.Controllers
             }
 
             var instructor = await _context.Instructor
-                .Include(i => i.Aeronave)
                 .FirstOrDefaultAsync(m => m.InstructorId == id);
             if (instructor == null)
             {
                 return NotFound();
             }
 
-            var viewModel  = new InstructorDetailViewModel();
-                viewModel.NombreInstructor = instructor.NombreInstructor;
-                viewModel.Apellido = instructor.Apellido;
-                viewModel.DNI = instructor.DNI;
-                viewModel.TipoLicencia = instructor.TipoLicencia;
-                viewModel.NumeroLicencia = instructor.NumeroLicencia;
-                viewModel.FechaExpedicion = instructor.FechaExpedicion;
-                viewModel.EnActividad = instructor.EnActividad;
-                viewModel.Aeronave = instructor.Aeronave;
-
-            return View(viewModel);
+            return View(instructor);
         }
+
         // GET: Instructor/Create
         public IActionResult Create()
         {
+            ViewData["AeronaveId"] = new SelectList(_context.Aeronave, "AeronaveId", "AeronaveTipo");
             return View();
         }
 
@@ -80,25 +58,26 @@ namespace Test.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InstructorId,NombreInstructor,Apellido,DNI,TipoLicencia,NumeroLicencia,FechaExpedicion,EnActividad,AeronaveId")] InstructorCreateViewModel instructorView)
+        public async Task<IActionResult> Create([Bind("InstructorId,InstructorNombre,InstructorApellido,InstructorDni,InstructorLicencia,InstructorNumeroLicencia,InstructorExpedicion,InstructorEnActividad,AeronaveId")] InstructorCreateViewModel instructorView)
         {
             if (ModelState.IsValid)
             {
                 var instructor = new Instructor{
-                    NombreInstructor = instructorView.NombreInstructor,
-                    Apellido = instructorView.Apellido,
-                    DNI = instructorView.DNI,
-                    TipoLicencia = instructorView.TipoLicencia,
-                    NumeroLicencia = instructorView.NumeroLicencia,
-                    FechaExpedicion = instructorView.FechaExpedicion,
-                    EnActividad = instructorView.EnActividad,
-                    Aeronave = instructorView.Aeronave
+                    InstructorNombre = instructorView.InstructorNombre,
+                    InstructorApellido = instructorView.InstructorNombre,
+                    InstructorDni = instructorView.InstructorDni,
+                    InstructorTipoLicencia = instructorView.InstructorTipoLicencia,
+                    InstructorNumeroLicencia = instructorView.InstructorNumeroLicencia,
+                    InstructorExpedicion = instructorView.InstructorExpedicion,
+                    InstructorEnActividad = instructorView.InstructorEnActividad,
+                    AeronaveId = instructorView.AeronaveId
                     
                 };
                 _context.Add(instructor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            // ViewData["AeronaveId"] = new SelectList(_context.Aeronave, "AeronaveId", "TipoAeronave",  "instructor.AeronaveId");
             return View(instructorView);
         }
 
@@ -115,19 +94,7 @@ namespace Test.Controllers
             {
                 return NotFound();
             }
-
-
-            var viewModel  = new InstructorEditViewModel();
-            viewModel.NombreInstructor = instructor.NombreInstructor;
-            viewModel.Apellido = instructor.Apellido;
-            viewModel.DNI = instructor.DNI;
-            viewModel.TipoLicencia = instructor.TipoLicencia;
-            viewModel.NumeroLicencia = instructor.NumeroLicencia;
-            viewModel.FechaExpedicion = instructor.FechaExpedicion;
-            viewModel.EnActividad = instructor.EnActividad;
-            viewModel.AeronaveId = instructor.AeronaveId;
-
-            return View(viewModel);
+            return View(instructor);
         }
 
         // POST: Instructor/Edit/5
@@ -135,7 +102,7 @@ namespace Test.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("InstructorId,NombreInstructor,Apellido,DNI,TipoLicencia,NumeroLicencia,FechaExpedicion,EnActividad,AeronaveId")] Instructor instructor)
+        public async Task<IActionResult> Edit(int id, [Bind("InstructorId,InstructorNombre,InstructorApellido,InstructorDni,InstructorTipoLicencia,InstructorNumeroLicencia,InstructorExpedicion,InstructorEnActividad")] Instructor instructor)
         {
             if (id != instructor.InstructorId)
             {
@@ -162,7 +129,6 @@ namespace Test.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AeronaveId"] = new SelectList(_context.Aeronave, "AeronaveId", "TipoAeronave", instructor.AeronaveId);
             return View(instructor);
         }
 
@@ -175,23 +141,13 @@ namespace Test.Controllers
             }
 
             var instructor = await _context.Instructor
-                .Include(i => i.Aeronave)
                 .FirstOrDefaultAsync(m => m.InstructorId == id);
             if (instructor == null)
             {
                 return NotFound();
             }
-            var viewModel  = new InstructorDeleteViewModel();
-            viewModel.NombreInstructor = instructor.NombreInstructor;
-            viewModel.Apellido = instructor.Apellido;
-            viewModel.DNI = instructor.DNI;
-            viewModel.TipoLicencia = instructor.TipoLicencia;
-            viewModel.NumeroLicencia = instructor.NumeroLicencia;
-            viewModel.FechaExpedicion = instructor.FechaExpedicion;
-            viewModel.EnActividad = instructor.EnActividad;
-            viewModel.AeronaveId = instructor.AeronaveId; 
 
-            return View(viewModel);
+            return View(instructor);
         }
 
         // POST: Instructor/Delete/5
@@ -201,7 +157,7 @@ namespace Test.Controllers
         {
             if (_context.Instructor == null)
             {
-                return Problem("Entity set 'AeronaveContext.Instructor'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Instructor'  is null.");
             }
             var instructor = await _context.Instructor.FindAsync(id);
             if (instructor != null)
@@ -215,7 +171,7 @@ namespace Test.Controllers
 
         private bool InstructorExists(int id)
         {
-            return (_context.Instructor?.Any(e => e.InstructorId == id)).GetValueOrDefault();
+          return (_context.Instructor?.Any(e => e.InstructorId == id)).GetValueOrDefault();
         }
     }
 }

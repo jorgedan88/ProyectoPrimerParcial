@@ -1,51 +1,45 @@
-@using ProyectoPrimerParcial.ViewModels;
-@model AeronaveIndexViewmodels
+@model IEnumerable<Proyecto_PrimerParcial.Models.Aeronave>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Aeronaves</h1>
+<h1>Index</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-success">+ Aeronave</a>
+    <a asp-action="Create">Create New</a>
 </p>
-
-<div class="row">
-    <form method="get" asp-action="Index" asp-controller="Aeronave">
-        <div class="col-6 form-group">
-            <input class="form-control" asp-for="NameFilter" />
-        </div>
-        <br>
-        <button class="btn btn-info" type="submit">Buscar</button>
-    </form>
-</div>
-
-
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TipoAeronave)
+                @Html.DisplayNameFor(model => model.AeronaveFabricacion)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FechaFabricacion)
+                @Html.DisplayNameFor(model => model.AeronaveTipo)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AeronaveMatricula)
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.aeronaves) {
+@foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.TipoAeronave)
-            </td>
-                        <td>
-                @Html.DisplayFor(modelItem => item.FechaFabricacion)
+                @Html.DisplayFor(modelItem => item.AeronaveFabricacion)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.AeronaveId"class="btn btn-warning">Modificar</a> 
-                <a asp-action="Details" asp-route-id="@item.AeronaveId" class="btn btn-primary">Detalle</a> 
-                <a asp-action="Delete" asp-route-id="@item.AeronaveId"  class="btn btn-danger" onclick="return confirm('¿Esta seguro que quiere eliminar este instructor?')">Eliminar</a>
+                @Html.DisplayFor(modelItem => item.AeronaveTipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AeronaveMatricula)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.AeronaveId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.AeronaveId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.AeronaveId">Delete</a>
             </td>
         </tr>
 }

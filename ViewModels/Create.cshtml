@@ -1,0 +1,84 @@
+@* @model Proyecto_PrimerParcial.ViewModels.InstructorViewModels.InstructorCreateViewModels; *@
+@model Proyecto_PrimerParcial.ViewModels.InstructorCreateViewModel;
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Crear instructor</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="InstructorNombre" class="control-label"></label>
+                <input asp-for="InstructorNombre" class="form-control" />
+                <span asp-validation-for="InstructorNombre" class="text-danger"></span>
+            </div>
+            <br>
+            <div class="form-group">
+                <label asp-for="InstructorApellido" class="control-label"></label>
+                <input asp-for="InstructorApellido" class="form-control" />
+                <span asp-validation-for="InstructorApellido" class="text-danger"></span>
+            </div>
+            <br>
+            <div class="form-group">
+                <label asp-for="InstructorDni" class="control-label"></label>
+                <input asp-for="InstructorDni" class="form-control" />
+                <span asp-validation-for="InstructorDni" class="text-danger"></span>
+            </div>
+
+
+
+            <br>
+            <label asp-for="InstructorTipoLicencia" class="control-label"></label>
+            <select asp-for="InstructorTipoLicencia" class="form-control">
+            <option value="0">Comercial</option>
+            <option value="1">Carga</option>
+            <option value="2">Militar</option>
+            </select>            
+            <br>
+
+
+
+            <div class="form-group">
+                <label asp-for="InstructorNumeroLicencia" class="control-label"></label>
+                <input asp-for="InstructorNumeroLicencia" class="form-control" />
+                <span asp-validation-for="InstructorNumeroLicencia" class="text-danger"></span>
+            </div>
+            <br>
+            <div class="form-group">
+            <label class="form-label" >Fecha de expedicion</label>
+            <input class="form-control" asp-for="InstructorExpedicion" />
+            </div>
+            <br>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="InstructorEnActividad" /> @Html.DisplayNameFor(model => model.InstructorEnActividad)
+                </label>
+            </div>
+            <br>
+            <div class="form-group">
+                <label asp-for="AeronaveId" class="control-label"></label>
+                <select asp-for="AeronaveId" class="form-control" asp-items="ViewBag.AeronaveId"></select>
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="submit" value="Crear" class="btn btn-success" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div><br>
+<br>
+    <a asp-action="Index">Volver</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

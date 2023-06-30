@@ -1,62 +1,51 @@
-@model ProyectoPrimerParcial.ViewModels.HangarIndexViewmodel;
+@model IEnumerable<Proyecto_PrimerParcial.Models.Hangar>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Hangares</h1>
+<h1>Index</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-success">+ Hangar</a>
+    <a asp-action="Create">Create New</a>
 </p>
-
-<div class="row">
-    <form method="get" asp-action="Index" asp-controller="Hangar">
-        <div class="col-6 form-group">
-            <input class="form-control" asp-for="NameFilterHan" />
-        </div>
-        <br>
-        <button class="btn btn-info" type="submit">Buscar</button>
-    </form>
-</div>
-
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NombreHangar)
+                @Html.DisplayNameFor(model => model.HangarNombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Sector)
+                @Html.DisplayNameFor(model => model.HangarSector)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AptoMantenimiento)
+                @Html.DisplayNameFor(model => model.HangarAptoMantenimiento)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.oficinas)
+                @Html.DisplayNameFor(model => model.HangarOficinas)
             </th>
-            <th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.hangars) {
+@foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.NombreHangar)
+                @Html.DisplayFor(modelItem => item.HangarNombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Sector)
+                @Html.DisplayFor(modelItem => item.HangarSector)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AptoMantenimiento)
+                @Html.DisplayFor(modelItem => item.HangarAptoMantenimiento)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.oficinas)
+                @Html.DisplayFor(modelItem => item.HangarOficinas)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.HangarId"class="btn btn-warning">Modificar</a> 
-                <a asp-action="Details" asp-route-id="@item.HangarId" class="btn btn-primary">Detalle</a> 
-                <a asp-action="Delete" asp-route-id="@item.HangarId"  class="btn btn-danger" onclick="return confirm('¿Esta seguro que quiere eliminar este instructor?')">Eliminar</a>
+                <a asp-action="Edit" asp-route-id="@item.HangarId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.HangarId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.HangarId">Delete</a>
             </td>
         </tr>
 }

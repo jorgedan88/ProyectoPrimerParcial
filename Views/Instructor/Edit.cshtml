@@ -1,11 +1,12 @@
-@model ProyectoPrimerParcial.ViewModels.InstructorEditViewModel
+@model Proyecto_PrimerParcial.Models.Instructor
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Editar instructor</h1>
+<h1>Edit</h1>
 
+<h4>Instructor</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -13,63 +14,49 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="InstructorId" />
             <div class="form-group">
-                <label asp-for="NombreInstructor" class="control-label"></label>
-                <input asp-for="NombreInstructor" class="form-control" />
-                <span asp-validation-for="NombreInstructor" class="text-danger"></span>
+                <label asp-for="InstructorNombre" class="control-label"></label>
+                <input asp-for="InstructorNombre" class="form-control" />
+                <span asp-validation-for="InstructorNombre" class="text-danger"></span>
             </div>
-            <br>
             <div class="form-group">
-                <label asp-for="Apellido" class="control-label"></label>
-                <input asp-for="Apellido" class="form-control" />
-                <span asp-validation-for="Apellido" class="text-danger"></span>
+                <label asp-for="InstructorApellido" class="control-label"></label>
+                <input asp-for="InstructorApellido" class="form-control" />
+                <span asp-validation-for="InstructorApellido" class="text-danger"></span>
             </div>
-            <br>
             <div class="form-group">
-                <label asp-for="DNI" class="control-label"></label>
-                <input asp-for="DNI" class="form-control" />
-                <span asp-validation-for="DNI" class="text-danger"></span>
+                <label asp-for="InstructorDni" class="control-label"></label>
+                <input asp-for="InstructorDni" class="form-control" />
+                <span asp-validation-for="InstructorDni" class="text-danger"></span>
             </div>
-            <br>
-            <label asp-for="TipoLicencia" class="control-label"></label>
-            <select asp-for="TipoLicencia" class="form-control">
-            <option value="0">Comercial</option>
-            <option value="1">Carga</option>
-            <option value="2">Militar</option>
-            </select> 
-            <br>
             <div class="form-group">
-                <label asp-for="NumeroLicencia" class="control-label"></label>
-                <input asp-for="NumeroLicencia" class="form-control" />
-                <span asp-validation-for="NumeroLicencia" class="text-danger"></span>
+                <label asp-for="InstructorTipoLicencia" class="control-label"></label>
+                <select asp-for="InstructorTipoLicencia" class="form-control"></select>
+                <span asp-validation-for="InstructorTipoLicencia" class="text-danger"></span>
             </div>
-            <br>
             <div class="form-group">
-            <label asp-for="FechaExpedicion" class="control-label"></label>
-            <input asp-for="FechaExpedicion" class="form-control" />
-            <span asp-validation-for="FechaExpedicion" class="text-danger"></span>
+                <label asp-for="InstructorNumeroLicencia" class="control-label"></label>
+                <input asp-for="InstructorNumeroLicencia" class="form-control" />
+                <span asp-validation-for="InstructorNumeroLicencia" class="text-danger"></span>
             </div>
-            <br>
+            <div class="form-group">
+                <label asp-for="InstructorExpedicion" class="control-label"></label>
+                <input asp-for="InstructorExpedicion" class="form-control" />
+                <span asp-validation-for="InstructorExpedicion" class="text-danger"></span>
+            </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                <input class="form-check-input" asp-for="EnActividad" /> @Html.DisplayNameFor(model => model.EnActividad)
+                    <input class="form-check-input" asp-for="InstructorEnActividad" /> @Html.DisplayNameFor(model => model.InstructorEnActividad)
                 </label>
             </div>
-            <br>
             <div class="form-group">
-                <label asp-for="AeronaveId" class="control-label"></label>
-                <select asp-for="AeronaveId" class="form-control" asp-items="ViewBag.AeronaveId"></select>
-            </div>
-            <br>
-            <div class="form-group">
-                <input type="submit" value="Guardar cambios" class="btn btn-success" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<br>
 <div>
-    <a asp-action="Index">Volver</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Test.Models;
+using Proyecto_PrimerParcial.Models;
 
-namespace Test.Controllers;
+namespace Proyecto_PrimerParcial.Controllers;
 
 public class HomeController : Controller
 {
