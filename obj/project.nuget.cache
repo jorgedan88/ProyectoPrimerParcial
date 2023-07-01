@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/S2PVl/RoaRz9+u8I67MPwpsoytAozzW7I0zOJXuX8R+EvPSKsXXSba68+ei5CcPhWdDHQAKGMrbPB7P8P5y9A==",
+  "dgSpecHash": "us5v3AHsAOX94zM1PUdCSjjBPpiSdKJCS1gm/bjjVlRAfTrxlx7ucqkZdZ+Ia4M2n9MLWbulCxtrO/U51cXNxw==",
   "success": true,
-  "projectFilePath": "c:\\Users\\olive\\OneDrive\\Escritorio\\Recupero\\UnoAMuchosConCSS\\Proyecto_PrimerParcial.csproj",
+  "projectFilePath": "C:\\Users\\olive\\Proyecto_PrimerParcial\\Proyecto_PrimerParcial\\Proyecto_PrimerParcial.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\olive\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\olive\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

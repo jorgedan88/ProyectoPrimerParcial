@@ -1,10 +1,10 @@
-@model Proyecto_PrimerParcial.Models.Aeronave
+@model Proyecto_PrimerParcial.ViewModels.AeronaveCreateViewModel;
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Crear Aeronave</h1>
 
 <h4>Aeronave</h4>
 <hr />
@@ -17,25 +17,29 @@
                 <input asp-for="AeronaveFabricacion" class="form-control" />
                 <span asp-validation-for="AeronaveFabricacion" class="text-danger"></span>
             </div>
+            <br>            
             <div class="form-group">
                 <label asp-for="AeronaveTipo" class="control-label"></label>
                 <input asp-for="AeronaveTipo" class="form-control" />
                 <span asp-validation-for="AeronaveTipo" class="text-danger"></span>
-            </div>
+            </div>           
+            <br>
             <div class="form-group">
                 <label asp-for="AeronaveMatricula" class="control-label"></label>
                 <input asp-for="AeronaveMatricula" class="form-control" />
                 <span asp-validation-for="AeronaveMatricula" class="text-danger"></span>
             </div>
+            <br>            
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="btn btn-primary" />
             </div>
+            <br>            
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver</a>
 </div>
 
 @section Scripts {

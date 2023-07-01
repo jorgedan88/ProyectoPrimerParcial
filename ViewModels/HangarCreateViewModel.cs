@@ -1,24 +1,24 @@
-using ProyectoPrimerParcial.Models;
+using Proyecto_PrimerParcial.Models;
 using System.ComponentModel.DataAnnotations;
-using ProyectoPrimerParcial.Utils;
+using Proyecto_PrimerParcial.Utils;
 
-namespace ProyectoPrimerParcial.ViewModels;
+namespace Proyecto_PrimerParcial.ViewModels;
 
-public class HangarCreateViewModel{ 
+public class HangarCreateViewModel{
+
         public int HangarId { get; set; }
-
+        
         [Display(Name = "Nombre")]
-        [Required(ErrorMessage ="Debe ingresar el nombre del Hangar")]
-        public string? NombreHangar {get;set;}
+        public string? HangarNombre {get;set;}
 
-        [Required(ErrorMessage ="Debe ingresar el sector")]
         [Display(Name = "Sector")]
-        public HangarType Sector { get; set; }
+        public HangarType HangarSector { get; set; }
 
-        [Display(Name = "Taller disponible")]
-        public bool AptoMantenimiento {get;set;} = true;
+        [Display(Name = "Mantenimiento")]
+        public bool HangarAptoMantenimiento {get;set;} = true;
+        [Display(Name = "Oficinas")]
+        public bool HangarOficinas {get;set;} = true;
+        public List<int> PistaIds {get;set;}
 
-        [Display(Name = "Cuenta con oficinas?")]
-        public bool oficinas {get;set;} = true;
-        public virtual List<Aeronave>? Aeronaves { get; set; }
+
 }

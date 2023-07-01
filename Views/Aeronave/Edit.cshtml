@@ -1,42 +1,43 @@
-@model Proyecto_PrimerParcial.Models.Aeronave
+@model Proyecto_PrimerParcial.ViewModels.AeronaveEditViewModel
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Editar aeronave</h1>
 
-<h4>Aeronave</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="AeronaveId" />
             <div class="form-group">
                 <label asp-for="AeronaveFabricacion" class="control-label"></label>
                 <input asp-for="AeronaveFabricacion" class="form-control" />
                 <span asp-validation-for="AeronaveFabricacion" class="text-danger"></span>
             </div>
+            <br>            
             <div class="form-group">
                 <label asp-for="AeronaveTipo" class="control-label"></label>
                 <input asp-for="AeronaveTipo" class="form-control" />
                 <span asp-validation-for="AeronaveTipo" class="text-danger"></span>
-            </div>
+            </div>           
+            <br>
             <div class="form-group">
                 <label asp-for="AeronaveMatricula" class="control-label"></label>
                 <input asp-for="AeronaveMatricula" class="form-control" />
                 <span asp-validation-for="AeronaveMatricula" class="text-danger"></span>
             </div>
+            <br>            
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Guardar cambios" class="btn btn-success" /> 
             </div>
+            <br>
         </form>
     </div>
 </div>
-
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver</a>
 </div>
 
 @section Scripts {

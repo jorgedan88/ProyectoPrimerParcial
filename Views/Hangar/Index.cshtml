@@ -1,14 +1,26 @@
-@model IEnumerable<Proyecto_PrimerParcial.Models.Hangar>
+@using Proyecto_PrimerParcial.ViewModels;
+@model HangarIndexViewModel;
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Hangares</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">+ Hangar</a>
 </p>
+
+<div class="row">
+    <form method="get" asp-action="Index" asp-controller="Hangar">
+        <div class="col-6 form-group">
+            <input class="form-control" asp-for="NameFilterHan" />
+        </div>
+        <br>
+        <button class="btn btn-info" type="submit">Buscar</button>
+    </form>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -28,7 +40,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.hangars) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.HangarNombre)
@@ -43,9 +55,9 @@
                 @Html.DisplayFor(modelItem => item.HangarOficinas)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.HangarId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.HangarId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.HangarId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.HangarId"class="btn btn-warning">Modificar</a> 
+                <a asp-action="Details" asp-route-id="@item.HangarId" class="btn btn-primary">Detalle</a> 
+                <a asp-action="Delete" asp-route-id="@item.HangarId"  class="btn btn-danger" onclick="return confirm('¿Esta seguro que quiere eliminar este instructor?')">Eliminar</a>
             </td>
         </tr>
 }

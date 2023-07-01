@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\olive\\OneDrive\\Escritorio\\Recupero\\UnoAMuchosConCSS\\Proyecto_PrimerParcial.csproj": {}
+    "C:\\Users\\olive\\Proyecto_PrimerParcial\\Proyecto_PrimerParcial\\Proyecto_PrimerParcial.csproj": {}
   },
   "projects": {
-    "c:\\Users\\olive\\OneDrive\\Escritorio\\Recupero\\UnoAMuchosConCSS\\Proyecto_PrimerParcial.csproj": {
+    "C:\\Users\\olive\\Proyecto_PrimerParcial\\Proyecto_PrimerParcial\\Proyecto_PrimerParcial.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\olive\\OneDrive\\Escritorio\\Recupero\\UnoAMuchosConCSS\\Proyecto_PrimerParcial.csproj",
+        "projectUniqueName": "C:\\Users\\olive\\Proyecto_PrimerParcial\\Proyecto_PrimerParcial\\Proyecto_PrimerParcial.csproj",
         "projectName": "Proyecto_PrimerParcial",
-        "projectPath": "c:\\Users\\olive\\OneDrive\\Escritorio\\Recupero\\UnoAMuchosConCSS\\Proyecto_PrimerParcial.csproj",
+        "projectPath": "C:\\Users\\olive\\Proyecto_PrimerParcial\\Proyecto_PrimerParcial\\Proyecto_PrimerParcial.csproj",
         "packagesPath": "C:\\Users\\olive\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\olive\\OneDrive\\Escritorio\\Recupero\\UnoAMuchosConCSS\\obj\\",
+        "outputPath": "C:\\Users\\olive\\Proyecto_PrimerParcial\\Proyecto_PrimerParcial\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\olive\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -14,5 +14,6 @@ namespace Proyecto_PrimerParcial.Models
         public PistaType PistaCapacidad { get; set; }
         public bool PistaIluminacion {get;set;} = true;
         public bool PistaAprovisionamiento {get;set;} = true;
+        public virtual List<Hangar> Hangars {get;set;}
     }
 }

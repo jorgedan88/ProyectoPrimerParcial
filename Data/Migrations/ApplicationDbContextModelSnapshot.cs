@@ -17,6 +17,21 @@ namespace Proyecto_PrimerParcial.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.8");
 
+            modelBuilder.Entity("HangarPista", b =>
+                {
+                    b.Property<int>("HangarsHangarId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PistasPistaId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("HangarsHangarId", "PistasPistaId");
+
+                    b.HasIndex("PistasPistaId");
+
+                    b.ToTable("HangarPista");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -314,6 +329,21 @@ namespace Proyecto_PrimerParcial.Data.Migrations
                     b.HasKey("PistaId");
 
                     b.ToTable("Pista");
+                });
+
+            modelBuilder.Entity("HangarPista", b =>
+                {
+                    b.HasOne("Proyecto_PrimerParcial.Models.Hangar", null)
+                        .WithMany()
+                        .HasForeignKey("HangarsHangarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Proyecto_PrimerParcial.Models.Pista", null)
+                        .WithMany()
+                        .HasForeignKey("PistasPistaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

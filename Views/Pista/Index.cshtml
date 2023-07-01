@@ -1,14 +1,26 @@
-@model IEnumerable<Proyecto_PrimerParcial.Models.Pista>
+@using Proyecto_PrimerParcial.ViewModels;
+@model PistaIndexViewModel;
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Pistas</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">+ Pista</a>
 </p>
+
+<div class="row">
+    <form method="get" asp-action="Index" asp-controller="Pista">
+        <div class="col-6 form-group">
+            <input class="form-control" asp-for="NameFilterPista"/>
+        </div>
+        <br>
+        <button class="btn btn-info" type="submit">Buscar</button>
+    </form>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -28,7 +40,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.pistas) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.PistaNombre)
@@ -43,9 +55,9 @@
                 @Html.DisplayFor(modelItem => item.PistaAprovisionamiento)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.PistaId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PistaId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PistaId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.PistaId"class="btn btn-warning">Modificar</a> 
+                <a asp-action="Details" asp-route-id="@item.PistaId" class="btn btn-primary">Detalle</a> 
+                <a asp-action="Delete" asp-route-id="@item.PistaId"  class="btn btn-danger" onclick="return confirm('¿Esta seguro que quiere eliminar este instructor?')">Eliminar</a>
             </td>
         </tr>
 }

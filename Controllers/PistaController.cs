@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Proyecto_PrimerParcial.Data;
 using Proyecto_PrimerParcial.Models;
+using Proyecto_PrimerParcial.ViewModels;
 
 namespace Proyecto_PrimerParcial.Controllers
 {
@@ -20,11 +21,31 @@ namespace Proyecto_PrimerParcial.Controllers
         }
 
         // GET: Pista
-        public async Task<IActionResult> Index()
+        // public async Task<IActionResult> Index()
+        // {
+        //       return _context.Pista != null ? 
+        //                 View(await _context.Pista.ToListAsync()) :
+        //                 Problem("Entity set 'ApplicationDbContext.Pista'  is null.");
+        // }
+
+        public async Task<IActionResult> Index(string nameFilterPista ,[Bind("PistaId,PistaNombre,PistaCapacidad,PistaIluminacion,PistaAprovisionamiento")] PistaIndexViewModel pistaView)
+
+
         {
-              return _context.Pista != null ? 
-                          View(await _context.Pista.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Pista'  is null.");
+            var query = from pista in _context.Pista select pista;
+
+            if (!string.IsNullOrEmpty(nameFilterPista))
+            {
+                query = query.Where(x => x.PistaNombre.Contains(nameFilterPista));
+            }
+
+            var model = new PistaIndexViewModel();
+            model.pistas =await query.ToListAsync();
+            
+            return _context.Pista != null ?
+            View(model):
+            Problem("Entity set 'PistaContex.Pista' is null.");
+
         }
 
         // GET: Pista/Details/5
@@ -42,7 +63,15 @@ namespace Proyecto_PrimerParcial.Controllers
                 return NotFound();
             }
 
-            return View(pista);
+            var viewModel = new PistaDetailViewModel();
+            viewModel.PistaId = pista.PistaId;
+            viewModel.PistaNombre = pista.PistaNombre;
+            viewModel.PistaCapacidad = pista.PistaCapacidad;
+            viewModel.PistaIluminacion = pista.PistaIluminacion;
+            viewModel.PistaAprovisionamiento = pista.PistaAprovisionamiento;
+            // viewModel.Hangars = await _context.Hangar.ToListAsync(); lo sugirio el IDE considerar
+
+            return View(viewModel);
         }
 
         // GET: Pista/Create
@@ -58,6 +87,7 @@ namespace Proyecto_PrimerParcial.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PistaId,PistaNombre,PistaCapacidad,PistaIluminacion,PistaAprovisionamiento")] Pista pista)
         {
+            ModelState.Remove("Hangars");
             if (ModelState.IsValid)
             {
                 _context.Add(pista);
@@ -133,7 +163,15 @@ namespace Proyecto_PrimerParcial.Controllers
                 return NotFound();
             }
 
-            return View(pista);
+            var viewModel = new PistaDeleteViewModel();
+            viewModel.PistaId = pista.PistaId;
+            viewModel.PistaNombre = pista.PistaNombre;
+            viewModel.PistaCapacidad = pista.PistaCapacidad;
+            viewModel.PistaIluminacion = pista.PistaIluminacion;
+            viewModel.PistaAprovisionamiento = pista.PistaAprovisionamiento;
+            // viewModel.Hangars = await _context.Hangar.ToListAsync(); lo sugirio el IDE considerar
+
+            return View(viewModel);
         }
 
         // POST: Pista/Delete/5

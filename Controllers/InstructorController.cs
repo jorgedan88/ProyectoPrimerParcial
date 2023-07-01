@@ -21,11 +21,22 @@ namespace Proyecto_PrimerParcial.Controllers
         }
 
         // GET: Instructor
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string nameFilterIns)
         {
-            return _context.Instructor != null ? 
-                        View(await _context.Instructor.ToListAsync()) :
-                        Problem("Entity set 'ApplicationDbContext.Instructor'  is null.");
+            var query = from instructor in _context.Instructor.Include(i => i.Aeronave) select instructor;
+
+            if (!string.IsNullOrEmpty(nameFilterIns))
+            {
+                query = query.Where(x => x.InstructorNombre.Contains(nameFilterIns) || x.InstructorApellido.Contains(nameFilterIns) || x.InstructorDni.ToString() == nameFilterIns);
+            }
+
+            var model = new InstructorIndexViewModel();
+            model.instructors =await query.ToListAsync();
+            
+            return _context.Aeronave != null ?
+            View(model):
+            Problem("Entity set 'AeronaveContex.Aeronave' is null.");
+
         }
 
         // GET: Instructor/Details/5
@@ -42,14 +53,23 @@ namespace Proyecto_PrimerParcial.Controllers
             {
                 return NotFound();
             }
+            var viewModel  = new InstructorDetailViewModel();
+            viewModel.InstructorNombre = instructor.InstructorNombre;
+            viewModel.InstructorApellido = instructor.InstructorApellido;
+            viewModel.InstructorDni = instructor.InstructorDni;
+            viewModel.InstructorTipoLicencia = instructor.InstructorTipoLicencia;
+            viewModel.InstructorNumeroLicencia = instructor.InstructorNumeroLicencia;
+            viewModel.InstructorExpedicion = instructor.InstructorExpedicion;
+            viewModel.InstructorEnActividad = instructor.InstructorEnActividad;
+            viewModel.AeronaveId = instructor.AeronaveId;
 
-            return View(instructor);
+            return View(viewModel);
         }
 
         // GET: Instructor/Create
         public IActionResult Create()
         {
-            ViewData["AeronaveId"] = new SelectList(_context.Aeronave, "AeronaveId", "AeronaveTipo");
+            ViewData["AeronaveId"] = new SelectList(_context.Aeronave, "AeronaveId", "AeronaveTipo",  "instructor.AeronaveId");
             return View();
         }
 
@@ -58,13 +78,13 @@ namespace Proyecto_PrimerParcial.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InstructorId,InstructorNombre,InstructorApellido,InstructorDni,InstructorLicencia,InstructorNumeroLicencia,InstructorExpedicion,InstructorEnActividad,AeronaveId")] InstructorCreateViewModel instructorView)
+        public async Task<IActionResult> Create([Bind("InstructorId,InstructorNombre,InstructorApellido,InstructorDni,InstructorTipoLicencia,InstructorNumeroLicencia,InstructorExpedicion,InstructorEnActividad,AeronaveId")] InstructorCreateViewModel instructorView)
         {
             if (ModelState.IsValid)
             {
                 var instructor = new Instructor{
                     InstructorNombre = instructorView.InstructorNombre,
-                    InstructorApellido = instructorView.InstructorNombre,
+                    InstructorApellido = instructorView.InstructorApellido,
                     InstructorDni = instructorView.InstructorDni,
                     InstructorTipoLicencia = instructorView.InstructorTipoLicencia,
                     InstructorNumeroLicencia = instructorView.InstructorNumeroLicencia,
@@ -81,7 +101,7 @@ namespace Proyecto_PrimerParcial.Controllers
             return View(instructorView);
         }
 
-        // GET: Instructor/Edit/5
+        // GET: Instructor/Edit/5      
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Instructor == null)
@@ -94,7 +114,19 @@ namespace Proyecto_PrimerParcial.Controllers
             {
                 return NotFound();
             }
-            return View(instructor);
+
+            var viewModel  = new InstructorEditViewModel();
+                    viewModel.InstructorNombre = instructor.InstructorNombre;
+                    viewModel.InstructorApellido = instructor.InstructorApellido;
+                    viewModel.InstructorDni = instructor.InstructorDni;
+                    viewModel.InstructorTipoLicencia = instructor.InstructorTipoLicencia;
+                    viewModel.InstructorNumeroLicencia = instructor.InstructorNumeroLicencia;
+                    viewModel.InstructorExpedicion = instructor.InstructorExpedicion;
+                    viewModel.InstructorEnActividad = instructor.InstructorEnActividad;
+                    viewModel.AeronaveId = instructor.AeronaveId;
+
+            ViewData["AeronaveId"] = new SelectList(_context.Aeronave, "AeronaveId", "AeronaveTipo");
+            return View(viewModel);
         }
 
         // POST: Instructor/Edit/5
@@ -102,9 +134,9 @@ namespace Proyecto_PrimerParcial.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("InstructorId,InstructorNombre,InstructorApellido,InstructorDni,InstructorTipoLicencia,InstructorNumeroLicencia,InstructorExpedicion,InstructorEnActividad")] Instructor instructor)
+        public async Task<IActionResult> Edit(int id, [Bind("InstructorId,InstructorNombre,InstructorApellido,InstructorDni,InstructorTipoLicencia,InstructorNumeroLicencia,InstructorExpedicion,InstructorEnActividad,AeronaveId")] Instructor instructorView)
         {
-            if (id != instructor.InstructorId)
+            if (id != instructorView.InstructorId)
             {
                 return NotFound();
             }
@@ -113,12 +145,12 @@ namespace Proyecto_PrimerParcial.Controllers
             {
                 try
                 {
-                    _context.Update(instructor);
+                    _context.Update(instructorView);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!InstructorExists(instructor.InstructorId))
+                    if (!InstructorExists(instructorView.InstructorId))
                     {
                         return NotFound();
                     }
@@ -129,7 +161,19 @@ namespace Proyecto_PrimerParcial.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(instructor);
+
+            // var viewModel  = new InstructorEditViewModel();
+            // viewModel.InstructorNombre = instructor.InstructorNombre;
+            // viewModel.InstructorApellido = instructor.InstructorApellido;
+            // viewModel.InstructorDni = instructor.InstructorDni;
+            // viewModel.InstructorTipoLicencia = instructor.InstructorTipoLicencia;
+            // viewModel.InstructorNumeroLicencia = instructor.InstructorNumeroLicencia;
+            // viewModel.InstructorExpedicion = instructor.InstructorExpedicion;
+            // viewModel.InstructorEnActividad = instructor.InstructorEnActividad;
+            // viewModel.AeronaveId = instructor.AeronaveId;
+
+            ViewData["AeronaveId"] = new SelectList(_context.Aeronave, "AeronaveId", "AeronaveTipo");
+            return View(instructorView);
         }
 
         // GET: Instructor/Delete/5
@@ -146,8 +190,17 @@ namespace Proyecto_PrimerParcial.Controllers
             {
                 return NotFound();
             }
+            var viewModel  = new InstructorDeleteViewModel();
+            viewModel.InstructorNombre = instructor.InstructorNombre;
+            viewModel.InstructorApellido = instructor.InstructorApellido;
+            viewModel.InstructorDni = instructor.InstructorDni;
+            viewModel.InstructorTipoLicencia = instructor.InstructorTipoLicencia;
+            viewModel.InstructorNumeroLicencia = instructor.InstructorNumeroLicencia;
+            viewModel.InstructorExpedicion = instructor.InstructorExpedicion;
+            viewModel.InstructorEnActividad = instructor.InstructorEnActividad;
+            viewModel.AeronaveId = instructor.AeronaveId;
 
-            return View(instructor);
+            return View(viewModel);
         }
 
         // POST: Instructor/Delete/5

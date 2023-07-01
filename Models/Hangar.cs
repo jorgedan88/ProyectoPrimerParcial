@@ -13,5 +13,7 @@ namespace Proyecto_PrimerParcial.Models
         public HangarType HangarSector { get; set; }
         public bool HangarAptoMantenimiento {get;set;} = true;
         public bool HangarOficinas {get;set;} = true;
+
+        public virtual List<Pista> Pistas {get;set;}
     }
 }

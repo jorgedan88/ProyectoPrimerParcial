@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Proyecto_PrimerParcial.Data;
 using Proyecto_PrimerParcial.Models;
+using Proyecto_PrimerParcial.ViewModels;
 
 namespace Proyecto_PrimerParcial.Controllers
 {
@@ -20,11 +21,24 @@ namespace Proyecto_PrimerParcial.Controllers
         }
 
         // GET: Aeronave
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string nameFilter ,[Bind("AeronaveTipo,AeronaveFabricacion")] AeronaveIndexViewModel aeronaveView)
+
+
         {
-              return _context.Aeronave != null ? 
-                          View(await _context.Aeronave.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Aeronave'  is null.");
+            var query = from aeronave in _context.Aeronave select aeronave;
+
+            if (!string.IsNullOrEmpty(nameFilter))
+            {
+                query = query.Where(x => x.AeronaveTipo.Contains(nameFilter) || x.AeronaveMatricula.Contains(nameFilter));
+            }
+
+            var model = new AeronaveIndexViewModel();
+            model.aeronaves =await query.ToListAsync();
+            
+            return _context.Aeronave != null ?
+            View(model):
+            Problem("Entity set 'AeronaveContex.Aeronave' is null.");
+
         }
 
         // GET: Aeronave/Details/5
@@ -42,7 +56,12 @@ namespace Proyecto_PrimerParcial.Controllers
                 return NotFound();
             }
 
-            return View(aeronave);
+            var viewModel = new AeronaveDetailViewModel();
+                viewModel.AeronaveFabricacion = aeronave.AeronaveFabricacion;
+                viewModel.AeronaveMatricula = aeronave.AeronaveMatricula;
+                viewModel.AeronaveTipo = aeronave.AeronaveTipo;            
+
+            return View(viewModel);
         }
 
         // GET: Aeronave/Create
@@ -56,15 +75,20 @@ namespace Proyecto_PrimerParcial.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AeronaveId,AeronaveFabricacion,AeronaveTipo,AeronaveMatricula")] Aeronave aeronave)
+        public async Task<IActionResult> Create([Bind("AeronaveTipo,AeronaveFabricacion,AeronaveMatricula")] AeronaveCreateViewModel aeronaveView)
         {
             if (ModelState.IsValid)
             {
+                var aeronave = new Aeronave{
+                    AeronaveFabricacion = aeronaveView.AeronaveFabricacion,
+                    AeronaveTipo = aeronaveView.AeronaveTipo,
+                    AeronaveMatricula = aeronaveView.AeronaveMatricula,
+                };
                 _context.Add(aeronave);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(aeronave);
+            return View(aeronaveView);
         }
 
         // GET: Aeronave/Edit/5
@@ -80,7 +104,16 @@ namespace Proyecto_PrimerParcial.Controllers
             {
                 return NotFound();
             }
-            return View(aeronave);
+
+            var viewModel = new AeronaveEditViewModel();
+            viewModel.AeronaveFabricacion = aeronave.AeronaveFabricacion;
+            viewModel.AeronaveTipo = aeronave.AeronaveTipo;
+            viewModel.AeronaveMatricula = aeronave.AeronaveMatricula;
+            
+
+            return View(viewModel);
+
+            // return View(aeronave);
         }
 
         // POST: Aeronave/Edit/5
@@ -88,9 +121,9 @@ namespace Proyecto_PrimerParcial.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AeronaveId,AeronaveFabricacion,AeronaveTipo,AeronaveMatricula")] Aeronave aeronave)
+        public async Task<IActionResult> Edit(int id, [Bind("AeronaveId,AeronaveFabricacion,AeronaveTipo,AeronaveMatricula")] Aeronave aeronaveView)
         {
-            if (id != aeronave.AeronaveId)
+            if (id != aeronaveView.AeronaveId)
             {
                 return NotFound();
             }
@@ -99,12 +132,12 @@ namespace Proyecto_PrimerParcial.Controllers
             {
                 try
                 {
-                    _context.Update(aeronave);
+                    _context.Update(aeronaveView);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AeronaveExists(aeronave.AeronaveId))
+                    if (!AeronaveExists(aeronaveView.AeronaveId))
                     {
                         return NotFound();
                     }
@@ -115,7 +148,7 @@ namespace Proyecto_PrimerParcial.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(aeronave);
+            return View(aeronaveView);
         }
 
         // GET: Aeronave/Delete/5
@@ -132,8 +165,12 @@ namespace Proyecto_PrimerParcial.Controllers
             {
                 return NotFound();
             }
+                var viewModel = new AeronaveDeleteViewModel();
+                    viewModel.AeronaveFabricacion = aeronave.AeronaveFabricacion;
+                    viewModel.AeronaveMatricula = aeronave.AeronaveMatricula;
+                    viewModel.AeronaveTipo = aeronave.AeronaveTipo;            
 
-            return View(aeronave);
+            return View(viewModel);
         }
 
         // POST: Aeronave/Delete/5

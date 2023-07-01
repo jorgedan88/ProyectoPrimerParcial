@@ -1,4 +1,4 @@
-@model Proyecto_PrimerParcial.Models.Hangar
+@model Proyecto_PrimerParcial.ViewModels.HangarEditViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -18,11 +18,13 @@
                 <input asp-for="HangarNombre" class="form-control" />
                 <span asp-validation-for="HangarNombre" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="HangarSector" class="control-label"></label>
-                <select asp-for="HangarSector" class="form-control"></select>
-                <span asp-validation-for="HangarSector" class="text-danger"></span>
-            </div>
+            <label asp-for="HangarSector" class="control-label"></label>
+            <select asp-for="HangarSector" class="form-control">
+            <option value="0">Norte</option>
+            <option value="1">Sur</option>
+            <option value="2">Este</option>
+            <option value="3">Oeste</option>
+            </select>  
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="HangarAptoMantenimiento" /> @Html.DisplayNameFor(model => model.HangarAptoMantenimiento)
@@ -47,3 +49,17 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+            @* <div class="form-group">
+                <input type="submit" value="Guardar cambios" class="btn btn-success" /> 
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} *@

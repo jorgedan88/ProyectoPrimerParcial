@@ -1,13 +1,14 @@
-@model Proyecto_PrimerParcial.Models.Hangar
+@using Proyecto_PrimerParcial.ViewModels;
+@model HangarDetailViewModel;
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Detalle del Hangar</h1>
 
 <div>
-    <h4>Hangar</h4>
+    <h4>@Html.DisplayFor(model => model.HangarNombre)</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -37,6 +38,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.HangarId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    @* <a asp-action="Edit" asp-route-id="@Model?.HangarId">Edit</a> | *@
+    <a asp-action="Index">Volver</a>
 </div>

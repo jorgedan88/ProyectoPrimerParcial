@@ -1,4 +1,4 @@
-@model Proyecto_PrimerParcial.Models.Instructor
+@model Proyecto_PrimerParcial.ViewModels.InstructorEditViewModel;
 
 @{
     ViewData["Title"] = "Edit";
@@ -8,7 +8,6 @@
 
 <h4>Instructor</h4>
 <hr />
-<div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -28,33 +27,41 @@
                 <input asp-for="InstructorDni" class="form-control" />
                 <span asp-validation-for="InstructorDni" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="InstructorTipoLicencia" class="control-label"></label>
-                <select asp-for="InstructorTipoLicencia" class="form-control"></select>
-                <span asp-validation-for="InstructorTipoLicencia" class="text-danger"></span>
-            </div>
+            <br>
+            <label asp-for="InstructorTipoLicencia" class="control-label"></label>
+            <select asp-for="InstructorTipoLicencia" class="form-control">
+            <option value="0">Comercial</option>
+            <option value="1">Carga</option>
+            <option value="2">Militar</option>
+            </select>            
+            <br>
             <div class="form-group">
                 <label asp-for="InstructorNumeroLicencia" class="control-label"></label>
                 <input asp-for="InstructorNumeroLicencia" class="form-control" />
                 <span asp-validation-for="InstructorNumeroLicencia" class="text-danger"></span>
             </div>
+            <br>
             <div class="form-group">
-                <label asp-for="InstructorExpedicion" class="control-label"></label>
-                <input asp-for="InstructorExpedicion" class="form-control" />
-                <span asp-validation-for="InstructorExpedicion" class="text-danger"></span>
+            <label class="form-label" >Fecha de expedicion</label>
+            <input class="form-control" asp-for="InstructorExpedicion" />
             </div>
+            <br>
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="InstructorEnActividad" /> @Html.DisplayNameFor(model => model.InstructorEnActividad)
                 </label>
             </div>
+            <br>
+            <div class="form-group">
+                <label asp-for="Aeronave" class="control-label"></label>
+                <select asp-for="AeronaveId" class="form-control" asp-items="ViewBag.AeronaveId"></select>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
-    </div>
+    </div> 
 </div>
-
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

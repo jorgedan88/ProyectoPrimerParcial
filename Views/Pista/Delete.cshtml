@@ -1,22 +1,22 @@
-@model Proyecto_PrimerParcial.Models.Pista
+@model Proyecto_PrimerParcial.ViewModels.PistaDeleteViewModel;
 
 @{
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1>Eliminar Aeronave</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Esta seguro que quiere eliminar esta aeronave?</h3>
 <div>
-    <h4>Pista</h4>
+    <h4>@Html.DisplayFor(model => model.PistaNombre)</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        @* <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.PistaNombre)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.PistaNombre)
-        </dd>
+        </dd> *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.PistaCapacidad)
         </dt>
@@ -39,7 +39,10 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="PistaId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> 
+        <br>
+        <br>
+        <a asp-action="Index">Volver</a>
     </form>
 </div>
+

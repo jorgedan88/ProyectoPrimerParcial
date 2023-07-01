@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Proyecto_PrimerParcial.Data;
 using Proyecto_PrimerParcial.Models;
+using Proyecto_PrimerParcial.ViewModels;
 
 namespace Proyecto_PrimerParcial.Controllers
 {
@@ -20,11 +21,23 @@ namespace Proyecto_PrimerParcial.Controllers
         }
 
         // GET: Hangar
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string nameFilterHan ,[Bind("HangarId, HangarNombre,HangarSector,HangarAptoMantenimiento,HangarOficinas,PistaIds")] HangarCreateViewModel hangarView)
+
+
         {
-              return _context.Hangar != null ? 
-                          View(await _context.Hangar.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Hangar'  is null.");
+            var query = from hangar in _context.Hangar select hangar;
+
+            if (!string.IsNullOrEmpty(nameFilterHan))
+            {
+                query = query.Where(x => x.HangarNombre.Contains(nameFilterHan));
+            }
+
+            var model = new HangarIndexViewModel();
+            model.hangars =await query.ToListAsync();
+            
+            return _context.Hangar != null ?
+            View(model):
+                        Problem("Entity set 'ApplicationDbContext.Hangar'  is null.");
         }
 
         // GET: Hangar/Details/5
@@ -42,12 +55,19 @@ namespace Proyecto_PrimerParcial.Controllers
                 return NotFound();
             }
 
-            return View(hangar);
+            var viewModel = new HangarDetailViewModel();
+            viewModel.HangarNombre = hangar.HangarNombre;
+            viewModel.HangarSector = hangar.HangarSector;
+            viewModel.HangarAptoMantenimiento = hangar.HangarAptoMantenimiento;
+            viewModel.HangarOficinas = hangar.HangarOficinas;      
+
+            return View(viewModel);
         }
 
         // GET: Hangar/Create
         public IActionResult Create()
         {
+            ViewData["Pistas"] = new SelectList(_context.Pista.ToList(),"PistaId","PistaNombre");
             return View();
         }
 
@@ -56,15 +76,27 @@ namespace Proyecto_PrimerParcial.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("HangarId,HangarNombre,HangarSector,HangarAptoMantenimiento,HangarOficinas")] Hangar hangar)
+        public async Task<IActionResult> Create([Bind("HangarId, HangarNombre,HangarSector,HangarAptoMantenimiento,HangarOficinas,PistaIds")] HangarCreateViewModel hangarView)
         {
             if (ModelState.IsValid)
             {
+                var pistas = _context.Pista.Where(x=> hangarView.PistaIds.Contains(x.PistaId)).ToList();
+
+                var hangar = new Hangar{
+                    HangarNombre = hangarView.HangarNombre,
+                    HangarSector = hangarView.HangarSector,
+                    HangarAptoMantenimiento = hangarView.HangarAptoMantenimiento,
+                    HangarOficinas = hangarView.HangarOficinas,
+                    Pistas = pistas
+
+                };
+
+
                 _context.Add(hangar);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(hangar);
+            return View(hangarView);
         }
 
         // GET: Hangar/Edit/5
@@ -80,7 +112,13 @@ namespace Proyecto_PrimerParcial.Controllers
             {
                 return NotFound();
             }
-            return View(hangar);
+            var viewModel = new HangarEditViewModel();
+            viewModel.HangarNombre = hangar.HangarNombre;
+            viewModel.HangarSector = hangar.HangarSector;
+            viewModel.HangarAptoMantenimiento = hangar.HangarAptoMantenimiento;
+            viewModel.HangarOficinas = hangar.HangarOficinas;
+            
+            return View(viewModel);
         }
 
         // POST: Hangar/Edit/5
@@ -88,9 +126,9 @@ namespace Proyecto_PrimerParcial.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("HangarId,HangarNombre,HangarSector,HangarAptoMantenimiento,HangarOficinas")] Hangar hangar)
+        public async Task<IActionResult> Edit(int id, [Bind("HangarId,HangarNombre,HangarSector,HangarAptoMantenimiento,HangarOficinas")] Hangar hangarView)
         {
-            if (id != hangar.HangarId)
+            if (id != hangarView.HangarId)
             {
                 return NotFound();
             }
@@ -99,12 +137,12 @@ namespace Proyecto_PrimerParcial.Controllers
             {
                 try
                 {
-                    _context.Update(hangar);
+                    _context.Update(hangarView);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!HangarExists(hangar.HangarId))
+                    if (!HangarExists(hangarView.HangarId))
                     {
                         return NotFound();
                     }
@@ -115,7 +153,7 @@ namespace Proyecto_PrimerParcial.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(hangar);
+            return View(hangarView);
         }
 
         // GET: Hangar/Delete/5
@@ -132,8 +170,14 @@ namespace Proyecto_PrimerParcial.Controllers
             {
                 return NotFound();
             }
+            var viewModel = new HangarDeleteViewModel();
+            viewModel.HangarNombre = hangar.HangarNombre;
+            viewModel.HangarSector = hangar.HangarSector;
+            viewModel.HangarAptoMantenimiento = hangar.HangarAptoMantenimiento;
+            viewModel.HangarOficinas = hangar.HangarOficinas;
+            
+            return View(viewModel);
 
-            return View(hangar);
         }
 
         // POST: Hangar/Delete/5

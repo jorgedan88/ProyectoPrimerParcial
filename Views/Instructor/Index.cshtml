@@ -1,14 +1,28 @@
-@model IEnumerable<Proyecto_PrimerParcial.Models.Instructor>
+@using Proyecto_PrimerParcial.ViewModels;
+@model InstructorIndexViewModel;
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Instructores de vuelo</h1>
+
+
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success"> + Instructor</a>
 </p>
+
+<div class="row">
+    <form method="get" asp-action="Index" asp-controller="Instructor">
+        <div class="col-6 form-group">
+            <input class="form-control" asp-for="NameFilterIns"/>
+        </div>
+        <br>
+        <button class="btn btn-info" type="submit">Buscar</button>
+    </form>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -33,11 +47,14 @@
             <th>
                 @Html.DisplayNameFor(model => model.InstructorEnActividad)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aeronave)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.instructors) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.InstructorNombre)
@@ -61,9 +78,12 @@
                 @Html.DisplayFor(modelItem => item.InstructorEnActividad)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.InstructorId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.InstructorId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.InstructorId">Delete</a>
+                @Html.DisplayFor(modelItem => item.Aeronave.AeronaveTipo)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.InstructorId" class="btn btn-warning">Modificar</a> 
+                <a asp-action="Details" asp-route-id="@item.InstructorId" class="btn btn-primary">Detalle</a> 
+                <a asp-action="Delete" asp-route-id="@item.InstructorId"  class="btn btn-danger" onclick="return confirm('¿Esta seguro que quiere eliminar este instructor?')">Eliminar</a>
             </td>
         </tr>
 }
